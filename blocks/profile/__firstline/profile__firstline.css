@@ -1,0 +1,14 @@
+.profile__firstline {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+}
+
+@media screen and (max-width: 450px) {
+    .profile__firstline {
+        justify-content: center;
+        align-items: center;
+    }
+}

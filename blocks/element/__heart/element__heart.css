@@ -1,0 +1,8 @@
+.element__heart {
+    max-width: 22px;
+    width: 100%;
+}
+
+.element__heart:hover {
+    opacity: 40%;
+}
