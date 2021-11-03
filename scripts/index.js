@@ -25,13 +25,7 @@ editButton.addEventListener('click', addClass);
 
 closeButton.addEventListener('click', removeClass);
 
-
-let formElement = document.querySelector('.popup__container');
-
-let nameInput = document.querySelector('.popup__text');
-console.log(nameInput);
-let jobInput = document.querySelector('.popup__text');
-console.log(jobInput);
+let formElement = document.querySelector('.popup__form');
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
