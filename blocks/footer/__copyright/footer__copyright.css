@@ -1,15 +1,21 @@
-.footer {
+.footer__copyright {
     width: 100%;
     padding: 0;
-    margin: 65px auto 60px auto;
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #545454;
 }
 
  @media screen and (max-width: 900px) {
      .footer {
         max-width: calc (100% - 2*19px);
         margin-top: 48px;
-        margin-bottom: 36px;
         padding-left: 19px;
         box-sizing: border-box;
+        font-size: 14px;
      }
  }

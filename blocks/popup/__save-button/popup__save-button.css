@@ -1,5 +1,4 @@
-.popup__savebutton {
-    max-width: calc(100% - 2*36px);
+.popup__save-button {
     width: 100%;
     min-height: 50px;
     background-color: #000000;
@@ -13,14 +12,16 @@
     color: #FFFFFF;
     margin: 18px auto 37px auto;
     padding: 0;
+    border: 1px solid #000000;
 }
 
-.popup__savebutton:hover {
-    opacity: 40%;
+.popup__save-button:hover {
+    opacity: 77%;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 620px) {
-    .popup__savebutton {
+    .popup__save-button {
         margin-top: 15px;
         min-height: 46px;
         font-size: 14px;

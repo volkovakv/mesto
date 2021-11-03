@@ -5,10 +5,13 @@
     font-size: 18px;
     line-height: 1.22;
     color: #FFFFFF;
-    margin: 16px 0 0 0;
+    margin: 0;
     padding: 0;
-    max-width: 294px;
-    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    grid-area: job;
 }
 
 @media screen and (max-width: 900px) {
@@ -19,9 +22,16 @@
     }
 }
 
+@media screen and (max-width: 690px) {
+    .profile__info-job {
+        margin-left: 14px;
+        text-align: center;
+    }
+}
+
+
 @media screen and (max-width: 450px) {
     .profile__info-job {
         max-width: 282px;
-        text-align: center;
     }
 }
