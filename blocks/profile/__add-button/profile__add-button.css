@@ -12,6 +12,7 @@
     margin: 0;
     margin-left: auto;
     align-self: center;
+    transition: visibility 0.4s, opacity 0.5s linear;
 }
 
 .profile__add-button:hover {

@@ -1,8 +1,13 @@
 .element__photo {
-    max-height: 282px;
-    max-width: 282px;
-    width: 100%;
-    object-fit: contain;
+    min-width: 282px;
+    min-height: 282px;
+    object-fit: cover;
     object-position: center;
-    border-radius: 10px 10px 0 0; 
+    border-radius: 10px 10px 0 0;
+    filter: brightness(75%);
+}
+
+.element__photo:hover {
+    opacity: 77%;
+    cursor: pointer;
 }
