@@ -39,9 +39,6 @@
 
 /* popup */
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/_bio/popup_bio.css);
-@import url(../blocks/popup/_photo/popup_photo.css);
-@import url(../blocks/popup/_zoom/popup_zoom.css);
 @import url(..//blocks/popup/_opened/popup_opened.css);
 @import url(..//blocks/popup/__container/popup__container.css);
 @import url(..//blocks/popup/__container-zoom/popup__container-zoom.css);
