@@ -37,8 +37,9 @@ const closeButtonPhoto = popupElementPhoto.querySelector('.popup__close-button')
 const editButton = document.querySelector('.profile__info-edit-button'); //кнопка редактировать "bio"
 const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"
 
-const cardTemplate = document.querySelector('#template').content; //шаблон карточки
+const cardTemplate = document.querySelector('#card-template').content; //шаблон карточки
 const cardsContainer = document.querySelector('.elements__list'); //список для добавления карточек
+
 
 //элементы попапа zoom
 const popupElementZoom = document.querySelector('#popup_zoom');
@@ -75,60 +76,57 @@ function closePopup(popupElement) {
 }
 
 // функция для записи новых значений в поля формы bio
-function SubmitHandlerBio(evt) {
+function submitHandlerBio(evt) {
     evt.preventDefault();
     nameProfile.textContent = inputsBio[0].value;
     jobProfile.textContent = inputsBio[1].value;
     closePopup(popupElementBio);
 }
 
+// функция для лайка
+function like(evt) {
+  evt.target.classList.toggle('element__heart_active');
+}
+
+//функция для удаления 
+function remove(evt) {
+  evt.target.closest('.element').remove();
+}
+
+// функция открытия попапа zoom
+function openPhotoPopup(evt) {
+  popupElementZoomContainerPic.src = evt.target.src;
+  popupElementZoomContainerPic.alt = evt.target.alt;
+  popupElementZoomContainerDescription.textContent = evt.target.alt;
+  openPopup(popupElementZoom);
+}
+
+// функция закрытия попапа zoom
+popupElementZoom.querySelector('.popup__close-button').addEventListener('click', () => {
+  closePopup(popupElementZoom);
+});
+
 //добавление карточек
 function createCard(card) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-        
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);     
   cardElement.querySelector('.element__photo').src = card.link;
   cardElement.querySelector('.element__photo').alt = card.name;
   cardElement.querySelector('.element__text').textContent = card.name;
 
-  //задание на отображение лайка
-  const likeButton = cardElement.querySelector('.element__heart'); //кнопка лайка
-  likeButton.addEventListener('click', like);
+  //отображение лайка
+  cardElement.querySelector('.element__heart').addEventListener('click', like); //кнопка лайка
+  
+  //удаление карточки
+  cardElement.querySelector('.element__trash').addEventListener('click', remove); //кнопка удалить
 
-  // функция для лайка
-  function like() {
-    likeButton.classList.toggle('element__heart_active');
-  }
-
-  //задание на удаление карточки
-  const trashButton = cardElement.querySelector('.element__trash'); //кнопка удалить
-  trashButton.addEventListener('click', remove);
-
-  //функция для удаления 
-  function remove () {
-    trashButton.closest('.element').remove();
-  }
-
-  //задание на открытие попапа с фото
-  const zoomButton = cardElement.querySelector('.element__photo'); //картинка-кнопка
-  zoomButton.addEventListener('click', openPhotoPopup);
-  function openPhotoPopup () {
-    popupElementZoomContainerPic.src = card.link;
-    popupElementZoomContainerPic.alt = card.name;
-    popupElementZoomContainerDescription.textContent = card.name;
-    openPopup(popupElementZoom);
-  }
-
-  const closeButtonZoom = popupElementZoom.querySelector('.popup__close-button'); //кнопка закрыть попап zoom
-  // слушатель для кнопки закрытия попапа zoom
-  closeButtonZoom.addEventListener('click', function () {
-    closePopup (popupElementZoom);
-  });
+  //открытие попапа с фото
+  cardElement.querySelector('.element__photo').addEventListener('click', openPhotoPopup); //картинка-кнопка
 
   return cardElement;
  }
 
 // задание на добавление новых карточек
-function SubmitHandlerPhoto(evt) {
+function submitHandlerPhoto(evt) {
   evt.preventDefault();
   const inputsPhoto = popupElementPhoto.querySelectorAll('input');
   const cardElement = createCard({
@@ -160,16 +158,16 @@ addButton.addEventListener('click', function () {
 
 // слушатель для кнопки закрытия "bio"
 closeButtonBio.addEventListener('click', function () {
-  closePopup (popupElementBio);
+  closePopup(popupElementBio);
 });
 
 // передача формы bio
-formElementBio.addEventListener('submit', SubmitHandlerBio); 
+formElementBio.addEventListener('submit', submitHandlerBio); 
 
 // слушатель для кнопки закрытия формы "добавить photo"
 closeButtonPhoto.addEventListener('click', function () {
-  closePopup (popupElementPhoto);
+  closePopup(popupElementPhoto);
   formElementPhoto.reset();
 });
 // передача формы "добавить photo"
-formElementPhoto.addEventListener('submit', SubmitHandlerPhoto); 
+formElementPhoto.addEventListener('submit', submitHandlerPhoto); 
