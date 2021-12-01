@@ -36,9 +36,23 @@ const closeButtonPhoto = popupElementPhoto.querySelector('.popup__close-button')
 
 const editButton = document.querySelector('.profile__info-edit-button'); //кнопка редактировать "bio"
 const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"
+const saveButton = document.querySelector('.popup__save-button'); //кнопка "сохранить карточку"
 
 const cardTemplate = document.querySelector('#card-template').content; //шаблон карточки
 const cardsContainer = document.querySelector('.elements__list'); //список для добавления карточек
+
+//переменные для обнуления кнопки сохранить
+const inactiveButtonClass = 'popup__save-button_inactive';
+const inputList = Array.from(popupElementPhoto.querySelectorAll('.popup__text'));
+const buttonElement = popupElementPhoto.querySelector('.popup__save-button');
+
+//инпуты bio
+const inputBioName = popupElementBio.querySelector('[name="name"]');
+const inputBioJob = popupElementBio.querySelector('[name="job"]');
+
+//инпуты в форме "добавить photo"
+const inputPhotoPlace = popupElementPhoto.querySelector('[name="place"]');
+const inputPhotoLink = popupElementPhoto.querySelector('[name="photo"]');
 
 
 //элементы попапа zoom
@@ -68,18 +82,35 @@ const formElementBio = popupElementBio.querySelector('.popup__form');
 // функция для открытия попапа
 function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
+    document.addEventListener('keydown', pressEsc);
 }
 
 // функция для закрытия попапа
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
+    document.removeEventListener('keydown', pressEsc);
 }
+
+//функция для закрытия попапа по клику на оверлей
+const сlickOverlay = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target); 
+  };
+};
+
+//функция для закрытия попапа по клику на esc
+const pressEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  };
+};
 
 // функция для записи новых значений в поля формы bio
 function submitHandlerBio(evt) {
     evt.preventDefault();
-    nameProfile.textContent = inputsBio[0].value;
-    jobProfile.textContent = inputsBio[1].value;
+    nameProfile.textContent = inputBioName.value;
+    jobProfile.textContent = inputBioJob.value;
     closePopup(popupElementBio);
 }
 
@@ -130,12 +161,13 @@ function submitHandlerPhoto(evt) {
   evt.preventDefault();
   const inputsPhoto = popupElementPhoto.querySelectorAll('input');
   const cardElement = createCard({
-    name: inputsPhoto[0].value,
-    link: inputsPhoto[1].value
+    name: inputPhotoPlace.value,
+    link: inputPhotoLink.value
   });
   cardsContainer.prepend(cardElement);
   closePopup(popupElementPhoto);
   formElementPhoto.reset();
+  toggleButtonState(inputList, buttonElement, {inactiveButtonClass});
 }
 
 // ИСПОЛНЯЕМЫЙ КОД
@@ -156,7 +188,7 @@ addButton.addEventListener('click', function () {
   openPopup(popupElementPhoto);
 });
 
-// слушатель для кнопки закрытия "bio"
+// слушатель для кнопки закрытия "bio" с кнопки
 closeButtonBio.addEventListener('click', function () {
   closePopup(popupElementBio);
 });
@@ -164,10 +196,15 @@ closeButtonBio.addEventListener('click', function () {
 // передача формы bio
 formElementBio.addEventListener('submit', submitHandlerBio); 
 
-// слушатель для кнопки закрытия формы "добавить photo"
+// слушатель для кнопки закрытия формы "добавить photo" с кнопки
 closeButtonPhoto.addEventListener('click', function () {
   closePopup(popupElementPhoto);
-  formElementPhoto.reset();
 });
+
+//слушатели для закрытия попапов по клику на оверлей
+popupElementBio.addEventListener('click', сlickOverlay);
+popupElementPhoto.addEventListener('click', сlickOverlay);
+popupElementZoom.addEventListener('click', сlickOverlay);
+
 // передача формы "добавить photo"
 formElementPhoto.addEventListener('submit', submitHandlerPhoto); 

@@ -30,16 +30,22 @@
     </main>
 
     <footer class="footer"> <!-- подвал -->
-        <p class="footer__copyright">&#169; 2021 Mesto Russia. Ксения Волкова</p>
+        <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
     </footer> 
   </div>
 
   <div class="popup" id="popup_bio"> <!-- форма pop-up редактирования bio -->
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form name="bio" class="popup__form">
-        <input type="text" class="popup__text" value="Жак-Ив Кусто" name="name" required>
-        <input type="text" class="popup__text" value="Исследователь океана" name="job" required>
+      <form name="bio" class="popup__form" novalidate>
+        <label class="popup__form-field">
+          <input type="text" class="popup__text" id="name-input" value="Жак-Ив Кусто" name="name" minlength="2" maxlength="40" required>
+          <span class="popup__text-error name-input-error" ></span>
+        </label>
+        <label class="popup__form-field">
+          <input type="text" class="popup__text" id="about-input" value="Исследователь океана" name="job" minlength="2" maxlength="200" required>
+          <span class="popup__text-error about-input-error" ></span>
+        </label>
         <button type="submit" class="popup__save-button">Сохранить</button> <!-- Отправка формы -->
       </form>
       <button type="reset" class="popup__close-button" aria-label="close"></button>  <!-- Закрытие формы -->
@@ -49,9 +55,15 @@
   <div class="popup" id="popup_photo"> <!-- форма pop-up добавления фото -->
     <div class="popup__container">
       <h3 class="popup__title">Новое место</h3>
-      <form name="addPhoto" class="popup__form">
-        <input type="text" class="popup__text" placeholder="Название" name="place" required>
-        <input type="text" class="popup__text" placeholder="Ссылка на картинку" name="photo" required>
+      <form name="addPhoto" class="popup__form" novalidate>
+        <label class="popup__form-field">
+          <input type="text" class="popup__text" id="place-input" placeholder="Название" name="place" minlength="2" maxlength="30" required>
+          <span class="popup__text-error place-input-error" ></span>
+        </label>
+        <label class="popup__form-field">
+          <input type="url" class="popup__text" id="link-input" placeholder="Ссылка на картинку" name="photo" required>
+          <span class="popup__text-error link-input-error" ></span>
+        </label>
         <button type="submit" class="popup__save-button">Создать</button> <!-- Отправка формы -->
       </form>
       <button type="reset" class="popup__close-button" aria-label="close"></button>  <!-- Закрытие формы -->
@@ -78,5 +90,6 @@
   </template>
 
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
