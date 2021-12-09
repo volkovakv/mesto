@@ -1,3 +1,7 @@
+//импорт модулей
+import Card from './Card.js';
+import { FormValidator, enableValidation } from './FormValidator.js';
+
 // КОНСТАНТЫ И ПЕРЕМЕННЫЕ
 //массив для добавления 6-ти карточек
 const initialCards = [
@@ -38,7 +42,7 @@ const editButton = document.querySelector('.profile__info-edit-button'); //кн�
 const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"
 const saveButton = document.querySelector('.popup__save-button'); //кнопка "сохранить карточку"
 
-const cardTemplate = document.querySelector('#card-template').content; //шаблон карточки
+const cardTemplate = ('#card-template'); //шаблон карточки
 const cardsContainer = document.querySelector('.elements__list'); //список для добавления карточек
 
 //переменные для обнуления кнопки сохранить
@@ -78,9 +82,16 @@ const textPhoto = document.querySelector('.element__text');
 // переменная для формы "bio"
 const formElementBio = popupElementBio.querySelector('.popup__form');
 
+// подключение валидации форме добавления и редактирования
+const popupElementBioValidate = new FormValidator(enableValidation, popupElementBio);
+const  popupElementPhotoValidate = new FormValidator(enableValidation, popupElementPhoto);
+
+popupElementBioValidate.enableValidation();
+popupElementPhotoValidate.enableValidation();
+
 // ФУНКЦИИ
 // функция для открытия попапа
-function openPopup(popupElement) {
+export function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
     document.addEventListener('keydown', pressEsc);
 }
@@ -88,7 +99,6 @@ function openPopup(popupElement) {
 // функция для закрытия попапа
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keydown', pressEsc);
 }
 
 //функция для закрытия попапа по клику на оверлей
@@ -106,6 +116,12 @@ const pressEsc = (evt) => {
   };
 };
 
+//создание карточки
+function createCard(item) {
+  const card = new Card(item, cardTemplate);
+  return card.generateCard();
+}
+
 // функция для записи новых значений в поля формы bio
 function submitHandlerBio(evt) {
     evt.preventDefault();
@@ -114,47 +130,10 @@ function submitHandlerBio(evt) {
     closePopup(popupElementBio);
 }
 
-// функция для лайка
-function like(evt) {
-  evt.target.classList.toggle('element__heart_active');
-}
-
-//функция для удаления 
-function remove(evt) {
-  evt.target.closest('.element').remove();
-}
-
-// функция открытия попапа zoom
-function openPhotoPopup(evt) {
-  popupElementZoomContainerPic.src = evt.target.src;
-  popupElementZoomContainerPic.alt = evt.target.alt;
-  popupElementZoomContainerDescription.textContent = evt.target.alt;
-  openPopup(popupElementZoom);
-}
-
 // функция закрытия попапа zoom
 popupElementZoom.querySelector('.popup__close-button').addEventListener('click', () => {
   closePopup(popupElementZoom);
 });
-
-//добавление карточек
-function createCard(card) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);     
-  cardElement.querySelector('.element__photo').src = card.link;
-  cardElement.querySelector('.element__photo').alt = card.name;
-  cardElement.querySelector('.element__text').textContent = card.name;
-
-  //отображение лайка
-  cardElement.querySelector('.element__heart').addEventListener('click', like); //кнопка лайка
-  
-  //удаление карточки
-  cardElement.querySelector('.element__trash').addEventListener('click', remove); //кнопка удалить
-
-  //открытие попапа с фото
-  cardElement.querySelector('.element__photo').addEventListener('click', openPhotoPopup); //картинка-кнопка
-
-  return cardElement;
- }
 
 // задание на добавление новых карточек
 function submitHandlerPhoto(evt) {
@@ -167,13 +146,13 @@ function submitHandlerPhoto(evt) {
   cardsContainer.prepend(cardElement);
   closePopup(popupElementPhoto);
   formElementPhoto.reset();
-  toggleButtonState(inputList, buttonElement, {inactiveButtonClass});
+  popupElementPhotoValidate.toggleButtonState();
 }
 
 // ИСПОЛНЯЕМЫЙ КОД
 //добавление карточки в DOM
  //обходим массив 6-ти карточек и добавляем их
- initialCards.forEach (card => {
+initialCards.forEach (card => {
   cardsContainer.append(createCard(card));
 });
 
