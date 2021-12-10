@@ -87,13 +87,6 @@ function closePopup(popupElement) {
     document.removeEventListener('keydown', pressEsc);
 }
 
-//функция для закрытия попапа по клику на оверлей
-const сlickOverlay = (evt) => {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target); 
-  };
-};
-
 //функция для закрытия попапа по клику на esc
 const pressEsc = (evt) => {
   if (evt.key === 'Escape') {
@@ -150,15 +143,10 @@ addButton.addEventListener('click', function () {
 // передача формы bio
 formElementBio.addEventListener('submit', submitHandlerBio); 
 
-//слушатели для закрытия попапов по клику на оверлей
-popupElementBio.addEventListener('click', сlickOverlay);
-popupElementPhoto.addEventListener('click', сlickOverlay);
-popupElementZoom.addEventListener('click', сlickOverlay);
-
 // передача формы "добавить photo"
 formElementPhoto.addEventListener('submit', submitHandlerPhoto); 
 
-// закрытие любого попапа крестиком
+// закрытие любого попапа крестиком и по оверлеюы
 popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {
