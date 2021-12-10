@@ -35,20 +35,13 @@ const initialCards = [
 const popupElementBio = document.querySelector('#popup_bio');
 const popupElementPhoto = document.querySelector('#popup_photo');
 
-const closeButtonBio = popupElementBio.querySelector('.popup__close-button'); //кнопка закрыть форму "bio"
-const closeButtonPhoto = popupElementPhoto.querySelector('.popup__close-button'); //кнопка закрыть форму "добавить photo
-
 const editButton = document.querySelector('.profile__info-edit-button'); //кнопка редактировать "bio"
 const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"
-const saveButton = document.querySelector('.popup__save-button'); //кнопка "сохранить карточку"
 
 const cardTemplate = ('#card-template'); //шаблон карточки
 const cardsContainer = document.querySelector('.elements__list'); //список для добавления карточек
 
-//переменные для обнуления кнопки сохранить
-const inactiveButtonClass = 'popup__save-button_inactive';
-const inputList = Array.from(popupElementPhoto.querySelectorAll('.popup__text'));
-const buttonElement = popupElementPhoto.querySelector('.popup__save-button');
+const popups = document.querySelectorAll('.popup') //все попапы
 
 //инпуты bio
 const inputBioName = popupElementBio.querySelector('[name="name"]');
@@ -57,7 +50,6 @@ const inputBioJob = popupElementBio.querySelector('[name="job"]');
 //инпуты в форме "добавить photo"
 const inputPhotoPlace = popupElementPhoto.querySelector('[name="place"]');
 const inputPhotoLink = popupElementPhoto.querySelector('[name="photo"]');
-
 
 //элементы попапа zoom
 export const popupElementZoom = document.querySelector('#popup_zoom');
@@ -68,16 +60,9 @@ export const popupElementZoomContainerDescription = popupElementZoomContainer.qu
 // переменная для формы "добавить photo"
 const formElementPhoto = popupElementPhoto.querySelector('.popup__form');
 
-// запоминаем значения из полей ввода формы "bio" для автозаполнения
-const inputsBio = popupElementBio.querySelectorAll('input');
-
 // переменные для полей ввода формы "bio"
 const nameProfile = document.querySelector('.profile__info-name');
 const jobProfile = document.querySelector('.profile__info-job');
-
-// переменные для полей ввода формы "добавить photo"
-const picPhoto = document.querySelector('.element__photo');
-const textPhoto = document.querySelector('.element__text');
 
 // переменная для формы "bio"
 const formElementBio = popupElementBio.querySelector('.popup__form');
@@ -131,15 +116,9 @@ function submitHandlerBio(evt) {
     closePopup(popupElementBio);
 }
 
-// функция закрытия попапа zoom
-popupElementZoom.querySelector('.popup__close-button').addEventListener('click', () => {
-  closePopup(popupElementZoom);
-});
-
 // задание на добавление новых карточек
 function submitHandlerPhoto(evt) {
   evt.preventDefault();
-  const inputsPhoto = popupElementPhoto.querySelectorAll('input');
   const cardElement = createCard({
     name: inputPhotoPlace.value,
     link: inputPhotoLink.value
@@ -168,18 +147,8 @@ addButton.addEventListener('click', function () {
   openPopup(popupElementPhoto);
 });
 
-// слушатель для кнопки закрытия "bio" с кнопки
-closeButtonBio.addEventListener('click', function () {
-  closePopup(popupElementBio);
-});
-
 // передача формы bio
 formElementBio.addEventListener('submit', submitHandlerBio); 
-
-// слушатель для кнопки закрытия формы "добавить photo" с кнопки
-closeButtonPhoto.addEventListener('click', function () {
-  closePopup(popupElementPhoto);
-});
 
 //слушатели для закрытия попапов по клику на оверлей
 popupElementBio.addEventListener('click', сlickOverlay);
@@ -188,3 +157,15 @@ popupElementZoom.addEventListener('click', сlickOverlay);
 
 // передача формы "добавить photo"
 formElementPhoto.addEventListener('submit', submitHandlerPhoto); 
+
+// закрытие любого попапа крестиком
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-button')) {
+          closePopup(popup)
+        }
+    })
+})
