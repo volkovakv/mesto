@@ -60,10 +60,10 @@ const inputPhotoLink = popupElementPhoto.querySelector('[name="photo"]');
 
 
 //элементы попапа zoom
-const popupElementZoom = document.querySelector('#popup_zoom');
+export const popupElementZoom = document.querySelector('#popup_zoom');
 const popupElementZoomContainer = document.querySelector('.popup__container-zoom');
-const popupElementZoomContainerPic = popupElementZoomContainer.querySelector('.popup__pic');
-const popupElementZoomContainerDescription = popupElementZoomContainer.querySelector('.popup__description');
+export const popupElementZoomContainerPic = popupElementZoomContainer.querySelector('.popup__pic');
+export const popupElementZoomContainerDescription = popupElementZoomContainer.querySelector('.popup__description');
 
 // переменная для формы "добавить photo"
 const formElementPhoto = popupElementPhoto.querySelector('.popup__form');
@@ -99,6 +99,7 @@ export function openPopup(popupElement) {
 // функция для закрытия попапа
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
+    document.removeEventListener('keydown', pressEsc);
 }
 
 //функция для закрытия попапа по клику на оверлей
