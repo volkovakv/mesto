@@ -1,11 +1,10 @@
-import { openPopup, popupElementZoom, popupElementZoomContainerPic, popupElementZoomContainerDescription } from './index.js';
-
 export default class Card {
-  constructor(data, cardTemplate) {
-    this._name = data.name;
-    this._imageName = data.name;
-    this._link = data.link;
+  constructor(item, cardTemplate, handleCardClick) {
+    this._name = item.name;
+    this._imageName = item.name;
+    this._link = item.link;
     this._cardTemplate = cardTemplate;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -13,7 +12,6 @@ export default class Card {
       .querySelector(this._cardTemplate)
       .content.querySelector('.element')
       .cloneNode(true);
-
     return this._element;
   }
 
@@ -35,14 +33,6 @@ export default class Card {
   _remove(evt) {
     evt.target.closest('.element').remove();
   }
-    
-  // функция открытия попапа zoom
-  _openPhotoPopup(evt) {
-    popupElementZoomContainerPic.src = evt.target.src;
-    popupElementZoomContainerPic.alt = evt.target.alt;
-    popupElementZoomContainerDescription.textContent = evt.target.alt;
-    openPopup(popupElementZoom);
-  };
 
   _setEventListeners() {
     //отображение лайка
@@ -56,8 +46,6 @@ export default class Card {
     });
 
     //открытие попапа с фото
-    this._element.querySelector('.element__photo').addEventListener('click', (evt) => {
-      this._openPhotoPopup(evt)
-    });
+    this._element.querySelector('.element__photo').addEventListener('click', () => this._handleCardClick());
   }
 }

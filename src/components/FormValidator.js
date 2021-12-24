@@ -8,6 +8,8 @@ export class FormValidator {
     this._inactiveButtonClass = validClasses.inactiveButtonClass;
     this._inputErrorClass = validClasses.inputErrorClass;
     this._errorClass = validClasses.errorClass;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
 // Функция, которая добавляет инпуту класс с ошибкой
@@ -55,10 +57,6 @@ toggleButtonState = () => {
 
 //обработчик для всех полей
 _setEventListeners = () => {
-  // Находим все поля внутри формы, делаем из них массив
-  this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-  //кнопка "Сохранить" 
-  this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   //кнопка "Сохранить" неактивна
   this.toggleButtonState();
   // Обойдём все элементы полученной коллекции
