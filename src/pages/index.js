@@ -11,6 +11,8 @@ import {
   cardsContainer,
   editButton,
   addButton,
+  formBioName,
+  formBioJob,
   initialCards,
   cardTemplate,
   profileNameSelector, 
@@ -29,7 +31,7 @@ popupElementBioValidate.enableValidation();
 popupElementPhotoValidate.enableValidation();
 
 //создание карточки
-function createCard(item, cardTemplate) {
+function createCard(item) {
   const card = new Card(item, cardTemplate, () => {
     openPhotos.open(item.link, item.name);
   });
@@ -44,29 +46,24 @@ openPhotos.setEventListeners();
 
 //отрисовка карточек
 const cards = new Section({
-  items: initialCards, 
-  renderer: (item) => {
-    const cardElement = createCard(item, cardTemplate);
+  renderItems: (item) => {
+    const cardElement = createCard(item);
     cards.addItem(cardElement);
   },
 }, cardsContainer);
-cards.renderItems();
+cards.renderItems(initialCards);
 
 //запись данных в попап bio
-const popupBio = new PopupWithForm(popupElementBioSelector, (event) => {
-    event.preventDefault();
-    const formInputValues = popupBio.getFormInputValues();
-    userForm.setUserInfo({ userName: formInputValues.name, userBio: formInputValues.job  });
+const popupBio = new PopupWithForm(popupElementBioSelector, (inputValues) => {
+    userForm.setUserInfo({ userName: inputValues.name, userBio: inputValues.job  });
     popupBio.close();
   },
 );
 popupBio.setEventListeners();
 
 //добавление новой карточки photo
-const popupNewPhoto = new PopupWithForm(popupElementPhotoSelector, (event) => {
-  event.preventDefault();
-  const formInputValues = popupNewPhoto.getFormInputValues();
-  const item = { name: formInputValues.place, link: formInputValues.photo};
+const popupNewPhoto = new PopupWithForm(popupElementPhotoSelector, (inputValues) => {
+  const item = { name: inputValues.place, link: inputValues.photo};
   const cardElement = createCard(item, cardTemplate);
   cards.addItem(cardElement);
   popupNewPhoto.close();
@@ -77,14 +74,16 @@ popupNewPhoto.setEventListeners();
 //открытие попапа редактирования bio 
 editButton.addEventListener("click", () => {
   const userData = userForm.getUserInfo();
-  const formBio = popupBio.getPopupForm();
-  formBio.name.value = userData.userName;
-  formBio.job.value = userData.userBio;
+  formBioName.value = userData.userName;
+  formBioJob.value = userData.userBio;
   popupBio.open();
+  popupElementBioValidate.toggleButtonState();
+  popupElementBioValidate.resetValidation();
 });
 
 //открытие попапа добавления фото
 addButton.addEventListener("click", () => {
   popupElementPhotoValidate.toggleButtonState();
+  popupElementPhotoValidate.resetValidation();
   popupNewPhoto.open();
 });

@@ -40,6 +40,9 @@ export const profileBioSelector = '.profile__info-job';
 export const cardTemplate = '.card-template'; //шаблон карточки
 export const cardsContainer = '.elements__list'; //список для добавления карточек
 
+export const formBioName = popupElementBio.querySelector("#name-input");
+export const formBioJob = popupElementBio.querySelector("#about-input");
+
 //кнопки 
 export const editButton = document.querySelector('.profile__info-edit-button'); //кнопка редактировать "bio"
 export const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"

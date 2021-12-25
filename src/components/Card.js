@@ -1,7 +1,6 @@
 export default class Card {
   constructor(item, cardTemplate, handleCardClick) {
     this._name = item.name;
-    this._imageName = item.name;
     this._link = item.link;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
@@ -17,9 +16,10 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    const elementPhoto = this._element.querySelector('.element__photo');
     this._setEventListeners();
-    this._element.querySelector('.element__photo').src = this._link;
-    this._element.querySelector('.element__photo').alt = this._name;
+    elementPhoto.src = this._link;
+    elementPhoto.alt = this._name;
     this._element.querySelector('.element__text').textContent = this._name;
     return this._element;
   }
@@ -30,8 +30,9 @@ export default class Card {
   }
     
   //функция для удаления 
-  _remove(evt) {
-    evt.target.closest('.element').remove();
+  _remove() {
+    this._element.remove();
+    this._element.null;
   }
 
   _setEventListeners() {

@@ -51,9 +51,17 @@ toggleButtonState = () => {
     this._buttonElement.setAttribute('disabled', true);
   } else {
     this._buttonElement.classList.remove(this._inactiveButtonClass);
-    this._buttonElement.removeAttribute('disabled', false);
+    this._buttonElement.removeAttribute('disabled');
   }
 };
+
+  // очистка ошибок
+  resetValidation() {
+    this.toggleButtonState(); 
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement) 
+    });
+  }
 
 //обработчик для всех полей
 _setEventListeners = () => {

@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
   }
 
   //передаем форму bio   
-  getPopupForm() {
+  get PopupForm() {
     return this._popupForm;
   }
 
@@ -22,19 +22,18 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  //передаем поля инпут
-  getFormInputValues() {
-    return this._getInputValues();
-  }
-
   close() {
     super.close();
     this._popupForm.reset();
   }
 
   setEventListeners() {
-    this._popupForm.addEventListener("submit", (event) => this._submitCallback(event));
     super.setEventListeners();
+    this._popupForm.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._submitCallback(this._getInputValues());
+    });
   }
+  
   
 }
