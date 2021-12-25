@@ -12,11 +12,11 @@ export default class Section {
       }
       
       //добавление карточек
-      addItem(element) {
+      prependAddItem(element) {
         this._containerElement.prepend(element);
       }
 
-      addItem(element) {
+      appendAddItem(element) {
         this._containerElement.append(element);
       }
 }

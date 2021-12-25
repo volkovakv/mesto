@@ -8,11 +8,6 @@ export default class PopupWithForm extends Popup {
     this._submitCallback = submitCallback;
   }
 
-  //передаем форму bio   
-  get PopupForm() {
-    return this._popupForm;
-  }
-
   //сбор данных полей формы
   _getInputValues() {
     const inputValues = {};

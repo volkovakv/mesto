@@ -48,7 +48,7 @@ openPhotos.setEventListeners();
 const cards = new Section({
   renderItems: (item) => {
     const cardElement = createCard(item);
-    cards.addItem(cardElement);
+    cards.appendAddItem(cardElement);
   },
 }, cardsContainer);
 cards.renderItems(initialCards);
@@ -65,7 +65,7 @@ popupBio.setEventListeners();
 const popupNewPhoto = new PopupWithForm(popupElementPhotoSelector, (inputValues) => {
   const item = { name: inputValues.place, link: inputValues.photo};
   const cardElement = createCard(item, cardTemplate);
-  cards.addItem(cardElement);
+  cards.prependAddItem(cardElement);
   popupNewPhoto.close();
   }
 );
