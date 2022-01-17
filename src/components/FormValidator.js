@@ -77,7 +77,7 @@ _setEventListeners = () => {
   });
 }; 
 
-//обработчик для всех форм
+//обработчик-валидатор для всех форм
 enableValidation() {
   this._setEventListeners();
   };
