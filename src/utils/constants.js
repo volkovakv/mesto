@@ -28,7 +28,12 @@ export const editButton = document.querySelector('.profile__info-edit-button'); 
 export const addButton = document.querySelector('.profile__add-button'); //кнопка "добавить photo"
 export const updateButton = document.querySelector('.profile__avatar-edit'); //кнопка "удалить photo"
 
-//элементы попапа zoom
-export const popupElementZoomContainer = document.querySelector('.popup__container-zoom');
-export const popupElementZoomContainerPic = popupElementZoomContainer.querySelector('.popup__pic');
-export const popupElementZoomContainerDescription = popupElementZoomContainer.querySelector('.popup__description');
+//селекторы для валидации
+export const enableValidation = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__text',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_inactive',
+    inputErrorClass: 'popup__text_type_error',
+    errorClass: 'popup__text-error_active'
+  };

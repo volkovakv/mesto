@@ -1,8 +1,9 @@
 //импорт
 import './index.css';
 import Card from '../components/Card.js';
-import { FormValidator, enableValidation } from '../components/FormValidator.js';
+import { FormValidator } from '../components/FormValidator.js';
 import { 
+  enableValidation,
   popupElementBio,
   popupElementPhoto,
   popupElementUpdate,

@@ -82,12 +82,3 @@ enableValidation() {
   this._setEventListeners();
   };
 };
-
-export const enableValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__text',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_inactive',
-  inputErrorClass: 'popup__text_type_error',
-  errorClass: 'popup__text-error_active'
-};
